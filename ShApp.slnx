@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ShApp.Core/ShApp.Core.csproj" />
+    <Project Path="src/ShApp.Infrastructure/ShApp.Infrastructure.csproj" />
+    <Project Path="src/ShApp.Mobile/ShApp.Mobile.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ShApp.Core.Tests/ShApp.Core.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/ShApp.ConsoleTester/ShApp.ConsoleTester.csproj" />
+  </Folder>
+</Solution>

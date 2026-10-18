@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShApp.Mobile.Views.IniciarTreinoPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource ObBackground}">
+
+    <Grid Padding="28" RowDefinitions="*,Auto,*">
+
+        <VerticalStackLayout Grid.Row="1" Spacing="20" HorizontalOptions="Center">
+
+            <Border WidthRequest="56" HeightRequest="56"
+                    Background="{StaticResource ObSurfaceElevated}"
+                    Stroke="{StaticResource ObBorderBrush}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="0" HorizontalOptions="Center">
+                <Label Text="&#xeb43;" FontFamily="MaterialSymbolsOutlined" FontSize="28"
+                       TextColor="{StaticResource ObPrimary}"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Pronto para treinar?" Style="{StaticResource ObTitleLg}"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                <Label Text="Vamos começar a sessão de hoje." Style="{StaticResource ObLabelMuted}"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <Button Text="&#9654;  Iniciar Treino" Style="{StaticResource ObPrimaryButton}" HeightRequest="48"
+                    WidthRequest="220" Clicked="OnIniciarTreinoClicked" />
+
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>

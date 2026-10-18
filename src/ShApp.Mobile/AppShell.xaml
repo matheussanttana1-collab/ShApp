@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ShApp.Mobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:ShApp.Mobile.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="ShApp.Mobile">
+
+    <TabBar>
+        <Tab Title="Dashboard" Route="treino">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialSymbolsOutlined" Glyph="&#xeb43;"
+                                  Color="{StaticResource ObPrimary}" Size="20" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" Route="dashboard" />
+        </Tab>
+        <Tab Title="Rotinas" Route="rotinas">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialSymbolsOutlined" Glyph="&#xefe8;"
+                                  Color="{StaticResource ObOnSurfaceSubtle}" Size="20" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:RotinasPage}" Route="rotinas-page" />
+        </Tab>
+        <Tab Title="Treino" Route="iniciar-treino">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialSymbolsOutlined" Glyph="&#xeb43;"
+                                  Color="{StaticResource ObOnSurfaceSubtle}" Size="20" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:IniciarTreinoPage}" Route="iniciar-treino-page" />
+        </Tab>
+        <Tab Title="Evolução" Route="evolucao">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialSymbolsOutlined" Glyph="&#xf190;"
+                                  Color="{StaticResource ObOnSurfaceSubtle}" Size="20" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:EvolucaoPage}" Route="evolucao-page" />
+        </Tab>
+        <Tab Title="Perfil" Route="perfil">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialSymbolsOutlined" Glyph="&#xf0d3;"
+                                  Color="{StaticResource ObOnSurfaceSubtle}" Size="20" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:PerfilPage}" Route="perfil-page" />
+        </Tab>
+    </TabBar>
+
+</Shell>

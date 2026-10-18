@@ -1,0 +1,72 @@
+1
+Supino Reto
+0
+1
+Supino Inclinado
+0
+1
+Crucifixo
+0
+1
+Puxada Frontal
+1
+1
+Remada Curvada
+1
+1
+Remada Baixa
+1
+1
+Desenvolvimento
+2
+1
+Elevação Lateral
+2
+1
+Rosca Direta
+3
+1
+Rosca Scott
+3
+1
+Tríceps Corda
+4
+1
+Tríceps Francês
+4
+1
+Abdominal Supra
+5
+1
+Abdominal Oblíquo
+5
+1
+Agachamento
+6
+1
+Leg Press
+6
+1
+Cadeira Extensora
+6
+1
+Stiff
+7
+1
+Mesa Flexora
+7
+1
+Elevação Pélvica
+8
+1
+Avanço
+8
+1
+Elevação de Calcanhar em Pé
+9
+1
+Elevação de Calcanhar Sentado
+9
+1
+Hiperextensão
+10

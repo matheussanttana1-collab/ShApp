@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShApp.Mobile.ViewModels"
+             xmlns:items="clr-namespace:ShApp.Mobile.ViewModels.Items"
+             xmlns:wiz="clr-namespace:ShApp.Mobile.ViewModels.Wizard"
+             xmlns:entities="clr-namespace:ShApp.Core.Entities;assembly=ShApp.Core"
+             x:Class="ShApp.Mobile.Views.RotinaWizardPage"
+             x:DataType="vm:RotinaWizardViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource ObBackground}">
+
+    <Grid>
+
+        <Grid RowDefinitions="Auto,*,Auto">
+
+            <!-- ===================== HEADER ===================== -->
+            <Grid Grid.Row="0" Padding="12,14,20,14" ColumnDefinitions="Auto,*,Auto" BackgroundColor="{StaticResource ObBackground}">
+                <Border Grid.Column="0" WidthRequest="40" HeightRequest="40" Background="Transparent"
+                        StrokeShape="RoundRectangle 10" Padding="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding VoltarCommand}" />
+                    </Border.GestureRecognizers>
+                    <Label Text="&#xe5c4;" FontFamily="MaterialSymbolsOutlined" FontSize="20"
+                           TextColor="{StaticResource ObOnSurfaceMuted}" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+
+                <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center" Margin="4,0,0,0">
+                    <Label Text="{Binding PassoAtualLabel}" FontFamily="JetBrainsMonoSemiBold" FontSize="10"
+                           TextColor="{StaticResource ObPrimary}" CharacterSpacing="0.8" />
+                    <Label Text="{Binding TituloEtapaLabel}" FontFamily="GeistSemiBold" FontSize="14" LineBreakMode="TailTruncation" />
+                </VerticalStackLayout>
+
+                <Border Grid.Column="2" WidthRequest="30" HeightRequest="30"
+                        Background="{StaticResource ObPrimaryBrush}" StrokeShape="RoundRectangle 15" Padding="0">
+                    <Label Text="&#xf0d3;" FontFamily="MaterialSymbolsOutlined" FontSize="15"
+                           TextColor="{StaticResource ObOnPrimary}" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+            </Grid>
+
+            <!-- ===================== CONTEÚDO ===================== -->
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Padding="16,4,16,24" Spacing="18">
+
+                    <!-- STEPPER -->
+                    <VerticalStackLayout Spacing="8">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Grid.Column="0" Text="{Binding EtapaNomeLabel}" Style="{StaticResource ObMono}" FontSize="11" TextColor="{StaticResource ObPrimary}" />
+                            <Label Grid.Column="1" Text="{Binding ProgressoPercentLabel}" Style="{StaticResource ObMono}" FontSize="11" />
+                        </Grid>
+                        <ProgressBar Progress="{Binding ProgressoFracao}" ProgressColor="{StaticResource ObPrimary}" HeightRequest="5" />
+                        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="4">
+                            <VerticalStackLayout Grid.Column="0" Spacing="2" HorizontalOptions="Center">
+                                <Label Text="1" FontFamily="JetBrainsMonoSemiBold" FontSize="10" HorizontalOptions="Center"
+                                       TextColor="{StaticResource ObPrimary}" />
+                                <Label Text="Divisão" FontSize="9" HorizontalOptions="Center" TextColor="{StaticResource ObPrimary}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" HorizontalOptions="Center">
+                                <Label Text="2" FontFamily="JetBrainsMonoSemiBold" FontSize="10" HorizontalOptions="Center"
+                                       TextColor="{StaticResource ObOnSurfaceSubtle}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsStep2}" Value="True">
+                                            <Setter Property="TextColor" Value="{StaticResource ObPrimary}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Text="Frequência" FontSize="9" HorizontalOptions="Center" TextColor="{StaticResource ObOnSurfaceSubtle}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsStep2}" Value="True">
+                                            <Setter Property="TextColor" Value="{StaticResource ObPrimary}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="2" Spacing="2" HorizontalOptions="Center">
+                                <Label Text="3" FontFamily="JetBrainsMonoSemiBold" FontSize="10" HorizontalOptions="Center"
+                                       TextColor="{StaticResource ObOnSurfaceSubtle}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsStep3}" Value="True">
+                                            <Setter Property="TextColor" Value="{StaticResource ObPrimary}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Text="Exercícios" FontSize="9" HorizontalOptions="Center" TextColor="{StaticResource ObOnSurfaceSubtle}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsStep3}" Value="True">
+                                            <Setter Property="TextColor" Value="{StaticResource ObPrimary}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="3" Spacing="2" HorizontalOptions="Center">
+                                <Label Text="4" FontFamily="JetBrainsMonoSemiBold" FontSize="10" HorizontalOptions="Center"
+                                       TextColor="{StaticResource ObOnSurfaceSubtle}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsStep4}" Value="True">
+                                            <Setter Property="TextColor" Value="{StaticResource ObPrimary}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Text="Revisão" FontSize="9" HorizontalOptions="Center" TextColor="{StaticResource ObOnSurfaceSubtle}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsStep4}" Value="True">
+                                            <Setter Property="TextColor" Value="{StaticResource ObPrimary}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <!-- ===================== ETAPA 1: DIVISÃO ===================== -->
+                    <VerticalStackLayout Spacing="14" IsVisible="{Binding IsStep1}">
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Escolha a Divisão de Treino" Style="{StaticResource ObTitleLg}" />
+                            <Label Text="Selecione uma periodização clássica, ou monte uma grade personalizada."
+                                   Style="{StaticResource ObLabelMuted}" FontSize="12" />
+                        </VerticalStackLayout>
+
+                        <Border Style="{StaticResource ObCard}">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="IDENTIFICAÇÃO DA ROTINA" Style="{StaticResource ObEyebrow}" />
+                                <Entry Text="{Binding NomeDaRotina}" FontFamily="GeistMedium" FontSize="14"
+                                       TextColor="{StaticResource ObOnSurface}" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Label Text="DIVISÕES PRÉ-DEFINIDAS" Style="{StaticResource ObEyebrow}" />
+
+                        <VerticalStackLayout Spacing="10" BindableLayout.ItemsSource="{Binding Presets}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="wiz:DivisaoPresetOptionViewModel">
+                                    <Border Padding="14" StrokeThickness="1" Stroke="{StaticResource ObBorderBrush}"
+                                            Background="{StaticResource ObSurfaceCardBrush}" StrokeShape="RoundRectangle 14">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelecionarPresetCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </Border.GestureRecognizers>
+                                        <Border.Triggers>
+                                            <DataTrigger TargetType="Border" Binding="{Binding IsSelecionado}" Value="True">
+                                                <Setter Property="Stroke" Value="{StaticResource ObPrimaryBrush}" />
+                                                <Setter Property="StrokeThickness" Value="1.5" />
+                                                <Setter Property="Background" Value="{StaticResource ObPrimarySoft}" />
+                                            </DataTrigger>
+                                        </Border.Triggers>
+                                        <VerticalStackLayout Spacing="6">
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <HorizontalStackLayout Grid.Column="0" Spacing="6">
+                                                    <Label Text="{Binding Definicao.Titulo}" FontFamily="GeistSemiBold" FontSize="14" />
+                                                    <Border Background="{StaticResource ObPrimaryBrush}" StrokeShape="RoundRectangle 4"
+                                                            Padding="5,1" IsVisible="{Binding TemBadge}">
+                                                        <Label Text="{Binding Definicao.Badge}" FontFamily="JetBrainsMonoSemiBold" FontSize="9"
+                                                               TextColor="{StaticResource ObOnPrimary}" />
+                                                    </Border>
+                                                </HorizontalStackLayout>
+                                                <Border Grid.Column="1" WidthRequest="20" HeightRequest="20"
+                                                        Background="{StaticResource ObSurfaceElevated}" StrokeShape="RoundRectangle 10" Padding="0">
+                                                    <Label Text="&#xe668;" FontFamily="MaterialSymbolsOutlined" FontSize="13"
+                                                           TextColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
+                                                        <Label.Triggers>
+                                                            <DataTrigger TargetType="Label" Binding="{Binding IsSelecionado}" Value="True">
+                                                                <Setter Property="TextColor" Value="{StaticResource ObOnPrimary}" />
+                                                            </DataTrigger>
+                                                        </Label.Triggers>
+                                                    </Label>
+                                                    <Border.Triggers>
+                                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelecionado}" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource ObPrimaryBrush}" />
+                                                        </DataTrigger>
+                                                    </Border.Triggers>
+                                                </Border>
+                                            </Grid>
+                                            <Label Text="{Binding Definicao.Resumo}" FontSize="12" TextColor="{StaticResource ObOnSurfaceMuted}" />
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <Label Grid.Column="0" Text="{Binding Definicao.SessoesLabel}" Style="{StaticResource ObMono}" FontSize="10" />
+                                                <Label Grid.Column="1" Text="{Binding Definicao.IdealLabel}" Style="{StaticResource ObMono}" FontSize="10"
+                                                       TextColor="{StaticResource ObTertiary}" />
+                                            </Grid>
+                                            <Label Text="{Binding Definicao.Detalhe}" FontSize="11" TextColor="{StaticResource ObOnSurfaceMuted}" />
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+
+                        <Border Padding="14" StrokeThickness="1" Stroke="{StaticResource ObBorderBrush}"
+                                Background="{StaticResource ObSurfaceElevated}" StrokeShape="RoundRectangle 14">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelecionarDivisaoCustomCommand}" />
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border" Binding="{Binding IsDivisaoCustomSelecionada}" Value="True">
+                                    <Setter Property="Stroke" Value="{StaticResource ObPrimaryBrush}" />
+                                    <Setter Property="StrokeThickness" Value="1.5" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="&#xe8b8;" FontFamily="MaterialSymbolsOutlined" FontSize="20"
+                                       TextColor="{StaticResource ObOnSurfaceMuted}" VerticalOptions="Center" />
+                                <VerticalStackLayout Spacing="1">
+                                    <Label Text="Divisão Personalizada (Livre)" FontFamily="GeistSemiBold" FontSize="13" />
+                                    <Label Text="Monte seus próprios dias e grupos musculares." FontSize="11"
+                                           TextColor="{StaticResource ObOnSurfaceMuted}" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Border>
+
+                        <!-- Construtor de divisão personalizada -->
+                        <VerticalStackLayout Spacing="10" IsVisible="{Binding IsDivisaoCustomSelecionada}">
+                            <Border Style="{StaticResource ObCard}">
+                                <VerticalStackLayout Spacing="10">
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                                        <Entry Grid.Column="0" Text="{Binding NovoDiaLetra}" Placeholder="Ex: A" WidthRequest="60"
+                                               FontFamily="JetBrainsMonoSemiBold" />
+                                        <Label Grid.Column="1" Text="Nome/letra do dia de treino" FontSize="11"
+                                               TextColor="{StaticResource ObOnSurfaceMuted}" VerticalOptions="Center" />
+                                    </Grid>
+                                    <Label Text="Grupos musculares deste dia" Style="{StaticResource ObLabelSubtle}" />
+                                    <FlexLayout BindableLayout.ItemsSource="{Binding GruposParaNovoDia}" Wrap="Wrap" Direction="Row" JustifyContent="Start">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="wiz:GrupoMuscularToggleViewModel">
+                                                <Border Padding="9,5" Margin="0,0,6,6" StrokeShape="RoundRectangle 8"
+                                                        Background="{StaticResource ObSurfaceElevated}" Stroke="{StaticResource ObBorderBrush}" StrokeThickness="1">
+                                                    <Border.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding ToggleCommand}" />
+                                                    </Border.GestureRecognizers>
+                                                    <Border.Triggers>
+                                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelecionado}" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource ObPrimaryBrush}" />
+                                                        </DataTrigger>
+                                                    </Border.Triggers>
+                                                    <Label Text="{Binding Nome}" FontSize="11" FontFamily="GeistMedium">
+                                                        <Label.Triggers>
+                                                            <DataTrigger TargetType="Label" Binding="{Binding IsSelecionado}" Value="True">
+                                                                <Setter Property="TextColor" Value="{StaticResource ObOnPrimary}" />
+                                                            </DataTrigger>
+                                                        </Label.Triggers>
+                                                    </Label>
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </FlexLayout>
+                                    <Button Text="+ Adicionar Dia" Style="{StaticResource ObSecondaryButton}"
+                                            Command="{Binding AdicionarDiaCustomCommand}" HorizontalOptions="Start" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Resumo dos dias atuais da divisão -->
+                        <VerticalStackLayout Spacing="8" IsVisible="{Binding TemDias}">
+                            <Label Text="DIAS DESTA DIVISÃO" Style="{StaticResource ObEyebrow}" />
+                            <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding Dias}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="wiz:DiaDraftViewModel">
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" Padding="10"
+                                              BackgroundColor="{StaticResource ObSurfaceElevated}">
+                                            <Border Grid.Column="0" WidthRequest="22" HeightRequest="22"
+                                                    Background="{StaticResource ObPrimarySoft}" StrokeShape="RoundRectangle 6" Padding="0">
+                                                <Label Text="{Binding Letra}" FontFamily="JetBrainsMonoSemiBold" FontSize="11"
+                                                       TextColor="{StaticResource ObPrimary}" HorizontalOptions="Center" VerticalOptions="Center" />
+                                            </Border>
+                                            <Label Grid.Column="1" Text="{Binding GruposLabel}" FontSize="12" VerticalOptions="Center"
+                                                   LineBreakMode="TailTruncation" />
+                                            <Label Grid.Column="2" Text="&#xe92e;" FontFamily="MaterialSymbolsOutlined" FontSize="16"
+                                                   TextColor="{StaticResource ObOnSurfaceSubtle}" VerticalOptions="Center"
+                                                   IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsDivisaoCustomSelecionada}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoverDiaCustomCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- ===================== ETAPA 2: FREQUÊNCIA ===================== -->
+                    <VerticalStackLayout Spacing="14" IsVisible="{Binding IsStep2}">
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Frequência e Dias de Treino" Style="{StaticResource ObTitleLg}" />
+                            <Label Text="Defina quantos dias por semana você treina e distribua no calendário."
+                                   Style="{StaticResource ObLabelMuted}" FontSize="12" />
+                        </VerticalStackLayout>
+
+                        <Border Style="{StaticResource ObCard}">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="DIVISÃO SELECIONADA" Style="{StaticResource ObLabelSubtle}" />
+                                    <Label Text="{Binding TituloDivisaoAtual}" FontFamily="GeistSemiBold" FontSize="13" LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+                                <Button Grid.Column="1" Text="Alterar" Style="{StaticResource ObSecondaryButton}"
+                                        Command="{Binding VoltarParaDivisaoCommand}" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+
+                        <Border Style="{StaticResource ObCard}">
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="META SEMANAL" Style="{StaticResource ObEyebrow}" HorizontalOptions="Center" />
+                                <Grid ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center">
+                                    <Border Grid.Column="0" WidthRequest="40" HeightRequest="40"
+                                            Background="{StaticResource ObSurfaceElevated}" StrokeShape="RoundRectangle 10" Padding="0">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding DecrementarMetaCommand}" />
+                                        </Border.GestureRecognizers>
+                                        <Label Text="−" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" Spacing="0" HorizontalOptions="Center">
+                                        <Label Text="{Binding MetaSemanal}" FontFamily="JetBrainsMonoSemiBold" FontSize="28" HorizontalOptions="Center" />
+                                        <Label Text="dias por semana" FontSize="11" TextColor="{StaticResource ObOnSurfaceMuted}" HorizontalOptions="Center" />
+                                    </VerticalStackLayout>
+                                    <Border Grid.Column="2" WidthRequest="40" HeightRequest="40"
+                                            Background="{StaticResource ObSurfaceElevated}" StrokeShape="RoundRectangle 10" Padding="0">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding IncrementarMetaCommand}" />
+                                        </Border.GestureRecognizers>
+                                        <Label Text="+" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="DIAS DE TREINO (toque para ligar/desligar)" Style="{StaticResource ObEyebrow}" />
+                            <Grid ColumnDefinitions="*,*,*,*,*,*,*" ColumnSpacing="4"
+                                  BindableLayout.ItemsSource="{Binding DiasDaSemanaOpcoes}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="wiz:DiaDaSemanaToggleViewModel">
+                                        <Border Background="{StaticResource ObSurfaceCardBrush}"
+                                                Stroke="{StaticResource ObBorderBrush}" StrokeThickness="1"
+                                                StrokeShape="RoundRectangle 10" Padding="2,10">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ToggleDiaDaSemanaCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                            </Border.GestureRecognizers>
+                                            <Border.Triggers>
+                                                <DataTrigger TargetType="Border" Binding="{Binding IsSelecionado}" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource ObPrimarySoft}" />
+                                                    <Setter Property="Stroke" Value="{StaticResource ObPrimaryBrush}" />
+                                                    <Setter Property="StrokeThickness" Value="1.2" />
+                                                </DataTrigger>
+                                            </Border.Triggers>
+                                            <Label Text="{Binding Abreviacao}" FontFamily="JetBrainsMonoMedium" FontSize="10"
+                                                   HorizontalOptions="Center" TextColor="{StaticResource ObOnSurfaceMuted}">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding IsSelecionado}" Value="True">
+                                                        <Setter Property="TextColor" Value="{StaticResource ObPrimary}" />
+                                                        <Setter Property="FontFamily" Value="JetBrainsMonoSemiBold" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="PRÉ-VISUALIZAÇÃO DESTA SEMANA" Style="{StaticResource ObEyebrow}" />
+                            <Grid ColumnDefinitions="*,*,*,*,*,*,*" ColumnSpacing="4"
+                                  BindableLayout.ItemsSource="{Binding GradeSemanalPreview}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="items:CicloSemanalDiaViewModel">
+                                        <Border Background="{StaticResource ObSurfaceCardBrush}"
+                                                Stroke="{StaticResource ObBorderBrush}" StrokeThickness="1"
+                                                StrokeShape="RoundRectangle 10" Padding="2,8">
+                                            <Border.Triggers>
+                                                <DataTrigger TargetType="Border" Binding="{Binding IsDiaDeTreino}" Value="False">
+                                                    <Setter Property="Opacity" Value="0.4" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Border" Binding="{Binding IsHoje}" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource ObPrimarySoft}" />
+                                                    <Setter Property="Stroke" Value="{StaticResource ObPrimaryBrush}" />
+                                                </DataTrigger>
+                                            </Border.Triggers>
+                                            <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                                <Label Text="{Binding Abreviacao}" FontFamily="JetBrainsMonoMedium" FontSize="8"
+                                                       TextColor="{StaticResource ObOnSurfaceMuted}" HorizontalOptions="Center" />
+                                                <Label Text="{Binding LetraOuOff}" FontFamily="JetBrainsMonoSemiBold" FontSize="11"
+                                                       HorizontalOptions="Center" />
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <Border Background="{StaticResource ObSurfaceSunken}" StrokeShape="RoundRectangle 12" Padding="12" StrokeThickness="0">
+                            <Label Text="{Binding FrequenciaMediaLabel}" FontSize="11" TextColor="{StaticResource ObOnSurfaceMuted}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- ===================== ETAPA 3: EXERCÍCIOS ===================== -->
+                    <VerticalStackLayout Spacing="14" IsVisible="{Binding IsStep3}">
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Configurar Exercícios" Style="{StaticResource ObTitleLg}" />
+                            <Label Text="Defina os exercícios, séries e repetições de cada dia."
+                                   Style="{StaticResource ObLabelMuted}" FontSize="12" />
+                        </VerticalStackLayout>
+
+                        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                            <HorizontalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding Dias}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="wiz:DiaDraftViewModel">
+                                        <Border Padding="12,8" StrokeThickness="1" Stroke="{StaticResource ObBorderBrush}"
+                                                Background="{StaticResource ObSurfaceCardBrush}" StrokeShape="RoundRectangle 10">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelecionarAbaCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                            </Border.GestureRecognizers>
+                                            <Border.Triggers>
+                                                <DataTrigger TargetType="Border" Binding="{Binding IsSelecionada}" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource ObPrimaryBrush}" />
+                                                </DataTrigger>
+                                            </Border.Triggers>
+                                            <VerticalStackLayout Spacing="0">
+                                                <Label Text="{Binding Letra}" FontFamily="JetBrainsMonoSemiBold" FontSize="13" HorizontalOptions="Center">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding IsSelecionada}" Value="True">
+                                                            <Setter Property="TextColor" Value="{StaticResource ObOnPrimary}" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                                <Label Text="{Binding ContagemLabel}" FontSize="9" HorizontalOptions="Center"
+                                                       TextColor="{StaticResource ObOnSurfaceMuted}">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Binding="{Binding IsSelecionada}" Value="True">
+                                                            <Setter Property="TextColor" Value="{StaticResource ObOnPrimary}" />
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </HorizontalStackLayout>
+                        </ScrollView>
+
+                        <VerticalStackLayout Spacing="0" BindableLayout.ItemsSource="{Binding AbaSelecionada.Itens}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="wiz:ItemDraftViewModel">
+                                    <VerticalStackLayout Spacing="0">
+                                        <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="8" Padding="0,8">
+                                            <Label Grid.Column="0" Text="{Binding NomeExercicio}" FontFamily="GeistMedium" FontSize="12"
+                                                   VerticalOptions="Center" LineBreakMode="TailTruncation" />
+                                            <Entry Grid.Column="1" Text="{Binding Series}" Keyboard="Numeric" WidthRequest="38"
+                                                   FontSize="12" HorizontalTextAlignment="Center" />
+                                            <Entry Grid.Column="2" Text="{Binding Repeticoes}" Keyboard="Numeric" WidthRequest="38"
+                                                   FontSize="12" HorizontalTextAlignment="Center" />
+                                            <Label Grid.Column="3" Text="&#xe92e;" FontFamily="MaterialSymbolsOutlined" FontSize="16"
+                                                   TextColor="{StaticResource ObOnSurfaceSubtle}" VerticalOptions="Center">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoverItemCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </Grid>
+                                        <BoxView HeightRequest="1" Color="{StaticResource ObBorder}" Opacity="0.3" />
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+
+                        <Button Text="+ Adicionar Exercício" Style="{StaticResource ObSecondaryButton}"
+                                Command="{Binding AbrirPickerExercicioCommand}" HorizontalOptions="Fill" />
+
+                        <Border Background="{StaticResource ObSurfaceSunken}" StrokeShape="RoundRectangle 12" Padding="12" StrokeThickness="0">
+                            <Grid ColumnDefinitions="*,*,*">
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="Exercícios" Style="{StaticResource ObLabelSubtle}" />
+                                    <Label Text="{Binding AbaSelecionada.ContagemLabel}" FontFamily="JetBrainsMonoSemiBold" FontSize="13" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                    <Label Text="Volume" Style="{StaticResource ObLabelSubtle}" />
+                                    <Label Text="{Binding AbaSelecionada.SeriesTotalLabel}" FontFamily="JetBrainsMonoSemiBold" FontSize="13" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="2" Spacing="2">
+                                    <Label Text="Tempo médio" Style="{StaticResource ObLabelSubtle}" />
+                                    <Label Text="{Binding AbaSelecionada.TempoMedioLabel}" FontFamily="JetBrainsMonoSemiBold" FontSize="13" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- ===================== ETAPA 4: REVISÃO ===================== -->
+                    <VerticalStackLayout Spacing="14" IsVisible="{Binding IsStep4}">
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Revisão Geral e Ativação" Style="{StaticResource ObTitleLg}" />
+                            <Label Text="Confira os parâmetros antes de salvar e ativar o ciclo."
+                                   Style="{StaticResource ObLabelMuted}" FontSize="12" />
+                        </VerticalStackLayout>
+
+                        <Border Style="{StaticResource ObCard}">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="{Binding NomeDaRotina}" FontFamily="GeistSemiBold" FontSize="15" />
+                                <Label Text="{Binding ResumoDivisaoFrequenciaLabel}" Style="{StaticResource ObMono}" FontSize="11" />
+                                <BoxView HeightRequest="1" Color="{StaticResource ObBorder}" Opacity="0.5" />
+                                <HorizontalStackLayout Spacing="6">
+                                    <Label Text="&#xf1df;" FontFamily="MaterialSymbolsOutlined" FontSize="13" TextColor="{StaticResource ObPrimary}" />
+                                    <Label Text="Ciclo contínuo, sem reinício semanal fixo" FontSize="11" TextColor="{StaticResource ObOnSurfaceMuted}" />
+                                </HorizontalStackLayout>
+                                <Label Text="{Binding ResumoInicioLabel}" FontSize="11" TextColor="{StaticResource ObTertiary}" FontFamily="JetBrainsMonoRegular" />
+                                <Label Text="{Binding ResumoTotaisLabel}" Style="{StaticResource ObMono}" FontSize="11" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Label Text="ESTRUTURA FINAL" Style="{StaticResource ObEyebrow}" />
+                        <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding Dias}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="wiz:DiaDraftViewModel">
+                                    <Border Style="{StaticResource ObCard}" Padding="12">
+                                        <VerticalStackLayout Spacing="6">
+                                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                                                <Border Grid.Column="0" WidthRequest="22" HeightRequest="22"
+                                                        Background="{StaticResource ObPrimarySoft}" StrokeShape="RoundRectangle 6" Padding="0">
+                                                    <Label Text="{Binding Letra}" FontFamily="JetBrainsMonoSemiBold" FontSize="11"
+                                                           TextColor="{StaticResource ObPrimary}" HorizontalOptions="Center" VerticalOptions="Center" />
+                                                </Border>
+                                                <Label Grid.Column="1" Text="{Binding GruposLabel}" FontFamily="GeistMedium" FontSize="12"
+                                                       VerticalOptions="Center" LineBreakMode="TailTruncation" />
+                                                <Label Grid.Column="2" Text="{Binding TempoMedioLabel}" Style="{StaticResource ObMono}" FontSize="10"
+                                                       VerticalOptions="Center" />
+                                            </Grid>
+                                            <VerticalStackLayout Spacing="2" BindableLayout.ItemsSource="{Binding Itens}">
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate x:DataType="wiz:ItemDraftViewModel">
+                                                        <Grid ColumnDefinitions="*,Auto">
+                                                            <Label Grid.Column="0" Text="{Binding NomeExercicio}" FontSize="11"
+                                                                   TextColor="{StaticResource ObOnSurfaceMuted}" LineBreakMode="TailTruncation" />
+                                                            <Label Grid.Column="1" FontSize="11" Style="{StaticResource ObMono}">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="{Binding Series}" />
+                                                                        <Span Text=" × " />
+                                                                        <Span Text="{Binding Repeticoes}" />
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                            </VerticalStackLayout>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- ===================== RODAPÉ ===================== -->
+            <Grid Grid.Row="2" Padding="16,12" ColumnDefinitions="Auto,*" ColumnSpacing="10"
+                  BackgroundColor="{StaticResource ObBackground}">
+                <Button Grid.Column="0" Text="&#8592;  Voltar" Style="{StaticResource ObSecondaryButton}"
+                        Command="{Binding VoltarCommand}" />
+                <Button Grid.Column="1" Text="{Binding BotaoAvancarLabel}" Style="{StaticResource ObPrimaryButton}"
+                        Command="{Binding AvancarCommand}" />
+            </Grid>
+        </Grid>
+
+        <!-- ===================== OVERLAY: PICKER DE EXERCÍCIO ===================== -->
+        <Grid BackgroundColor="#CC000000" IsVisible="{Binding IsPickerExercicioAberto}">
+            <Border Margin="20" VerticalOptions="Center" MaximumHeightRequest="560"
+                    Background="{StaticResource ObSurfaceCardBrush}" Stroke="{StaticResource ObBorderBrush}"
+                    StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="16">
+                <Grid RowDefinitions="Auto,Auto,*,Auto,Auto,Auto">
+                    <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" Text="Adicionar Exercício" FontFamily="GeistSemiBold" FontSize="15" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="&#xe5cd;" FontFamily="MaterialSymbolsOutlined" FontSize="18"
+                               TextColor="{StaticResource ObOnSurfaceMuted}" VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FecharPickerExercicioCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <Entry Grid.Row="1" Text="{Binding FiltroExercicio}" Placeholder="Buscar exercício..." Margin="0,10,0,6" />
+
+                    <CollectionView Grid.Row="2" ItemsSource="{Binding ExerciciosFiltrados}" SelectionMode="None" MinimumHeightRequest="120">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="entities:Exercicio">
+                                <Grid Padding="4,8" ColumnDefinitions="*,Auto">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AdicionarExercicioAoDiaCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label Grid.Column="0" Text="{Binding Nome}" FontSize="12" VerticalOptions="Center" />
+                                    <Label Grid.Column="1" Text="{Binding GrupoMuscular}" Style="{StaticResource ObMono}" FontSize="10"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <BoxView Grid.Row="3" HeightRequest="1" Color="{StaticResource ObBorder}" Opacity="0.5" Margin="0,6" />
+
+                    <Label Grid.Row="4" Text="Não encontrou? Crie um novo exercício:" FontSize="10"
+                           TextColor="{StaticResource ObOnSurfaceMuted}" Margin="0,0,0,6" />
+
+                    <Grid Grid.Row="5" RowDefinitions="Auto,Auto" RowSpacing="6">
+                        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                            <Entry Grid.Column="0" Text="{Binding NovoExercicioNome}" Placeholder="Nome do exercício" FontSize="12" />
+                            <Picker Grid.Column="1" ItemsSource="{Binding TodosGruposMusculares}" SelectedItem="{Binding NovoExercicioGrupoSelecionado}"
+                                    Title="Grupo" WidthRequest="110" FontSize="11" />
+                        </Grid>
+                        <Button Grid.Row="1" Text="Criar e Adicionar" Style="{StaticResource ObPrimaryButton}" HeightRequest="40"
+                                Command="{Binding CriarNovoExercicioCommand}" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

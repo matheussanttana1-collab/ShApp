@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShApp.Mobile.ViewModels"
+             x:Class="ShApp.Mobile.Views.CadastroUsuarioPage"
+             x:DataType="vm:CadastroUsuarioViewModel"
+             BackgroundColor="{StaticResource ObBackground}">
+
+    <Grid Padding="28" RowDefinitions="*,Auto,*">
+
+        <VerticalStackLayout Grid.Row="1" Spacing="22">
+
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Border WidthRequest="48" HeightRequest="48"
+                        Background="{StaticResource ObSurfaceElevated}"
+                        Stroke="{StaticResource ObBorderBrush}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 14"
+                        Padding="0" HorizontalOptions="Center">
+                    <Label Text="&#xeb43;" FontFamily="MaterialSymbolsOutlined" FontSize="24"
+                           TextColor="{StaticResource ObPrimary}"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <Label Text="SHAPP" FontFamily="GeistSemiBold" FontSize="16"
+                       CharacterSpacing="1.5" TextColor="{StaticResource ObOnSurface}"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Como podemos te chamar?" Style="{StaticResource ObTitleLg}"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                <Label Text="Vamos criar seu perfil local antes de começar." Style="{StaticResource ObLabelMuted}"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <Border Style="{StaticResource ObCard}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="SEU NOME" Style="{StaticResource ObEyebrow}" />
+                    <Entry Text="{Binding Nome}" Placeholder="Ex: Matheus" FontFamily="GeistMedium" FontSize="14"
+                           TextColor="{StaticResource ObOnSurface}" ReturnCommand="{Binding CriarUsuarioCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding ErroLabel}" Style="{StaticResource ObLabelSubtle}"
+                   TextColor="{StaticResource ObError}" IsVisible="{Binding HasErro}"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+            <Button Text="Começar" Style="{StaticResource ObPrimaryButton}" HeightRequest="48"
+                    Command="{Binding CriarUsuarioCommand}" />
+
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>
